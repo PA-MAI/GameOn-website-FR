@@ -14,7 +14,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
+  /*background-image: url("background.png");*/
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -56,6 +56,7 @@ img {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  text-decoration: underline;
 }
 
 .topnav a.active {
@@ -190,6 +191,22 @@ input {
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
+}
+.errorStyle {
+  border-color: #e54858;
+  border-width: 2px;
+  color: #e54858;
+  font-size: 20px;
+}
+.errorMessage{
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: x-small;
+  font-weight: 100;
+  color: #e54858;
+}
+.errorRadio input [type=”radio”]{
+border-color: #e54858;
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
@@ -381,9 +398,11 @@ input[data-error]::after {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   overflow: hidden;
-  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  
   margin-bottom: 10px;
 }
+
 .hero-content {
   padding: 51px 67px;
   grid-column: span 4;
@@ -449,16 +468,63 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-.popupResult{
-  display:none;
+
+/* Styles pour la modal de résultat */
+.popupResult {
   position: fixed;
-  z-index: 1;
-  left: 0;
+  animation-name: modalopen;
+  animation-duration: var(--modal-duration);
+  border-radius: 10px;
   top: 0;
-  height: 100%;
+  left: 0;
   width: 100%;
+  max-width: 600px;
+  height: 88%;
+  background: #232323;
+  
+  /*position: relative;*/
+  color: #fff;
+  display: none; /* Cachée par défaut */
+  flex-direction: column;
+  justify-content:flex-end;
+  align-self: center;
+  row-gap: 40%;
+  align-items: center;
+  z-index: 1001; /* S'assure qu'elle est au-dessus des autres éléments */
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  padding-top: 10px;
+  margin: 4% 35% ;
+  padding-bottom: 25px; 
+}
+
+
+.popupResult .popup {
+  background-color: #232323;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 26px;
+  text-align: center;
+  position: center;
+  width: 80% ;
+}
+
+.popupResult .closeResult {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.btn-close {
+  background: #fe142f;
+  display: block;
+  margin: 0 auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 32px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
 }
 @keyframes modalopen {
   from {
@@ -523,6 +589,12 @@ footer {
     margin-top: 0;
     text-align: center;
   }
+  /* Styles pour la modal de résultat */
+.popupResult{
+  margin: 15% 0 0 0;
+  gap:35%;
+  max-height:70%
+}
 }
 
 

@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="./assets/css/modal.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link
-      href="https://fonts.googleapis.com/css?family=DM+Sans"
-      rel="stylesheet"
-    />
-    <script src="./assets/js/popupThx.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="./assets/img/logo.svg">
+    <!-- <script src="./assets/js/popupThx.js" defer></script> -->
     <script src="./assets/js/modal.js" defer></script>
-    <script src="./assets/js/functionControl.js" defer></script>
-    <script src="./assets/js/script.js" defer></script>
+    <!--<script src="./assets/js/functionControl.js" defer></script>-->
+    <!--<script src="./assets/js/script.js" defer></script>-->
   </head>
   <body>
     <div class="topnav" id="myTopnav">
@@ -59,15 +57,15 @@
       <div class="bground">
         <div class="content">
           
-          <span class="close"></span>
+          <span class="close">&times;</span>
           <div class="modal-body">
             
             <form
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
-            >
+              >
+            
               <div
                 class="formData">
                 <label>Prénom</label><br>
@@ -87,6 +85,7 @@
                   type="text"
                   id="last"
                   name="last"
+                  minlength="2"
                 /><br>
               </div>
               <div
@@ -224,9 +223,14 @@
     <!-- Popup de remerciement -->
     <div class="popupResult">
       <div class="popup">
-          <div>Merci ! Votre réservation a été reçue</div>
-          
+          <div>Merci pour <br>votre inscription</div>
       </div>
+      <div><a  href="index.html" class="btn-close modal-btn">
+            Fermer
+          </a>
+      </div>
+      
+      
   </div>
  
   </body>
