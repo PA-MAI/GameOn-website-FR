@@ -28,11 +28,11 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
-  if (popupResult) popupResult.style.display = "none"; // Ferme aussi la modal de confirmation si ouverte
+  if (popupResult) popupResult.style.display = "none"; // close modal result if open
 }
 
 /**
- * Afficher message d'erreur
+ * Display errors messages
  * @param {HTMLElement} input 
  * @param {string} message 
  */
@@ -49,7 +49,7 @@ function afficherMessageError(input, message) {
 }
 
 /**
- * Effacer les messages d'erreur
+ * delete errors messages
  * @param {HTMLElement} input 
  */
 function effacerMessageError(input) {
@@ -61,7 +61,7 @@ function effacerMessageError(input) {
 }
 
 /** 
- * Validation de chaque champ
+ * Validate inputs
  */
 function validerPrenom(first) {
   if (first.value === "") {
@@ -119,25 +119,39 @@ function validerQuantite(quantity) {
 
 function validerVille() {
   const radios = document.querySelectorAll('input[name="location"]');
+  const radioGroup = radios[0].closest(".formData"); // Trouve le conteneur parent
+
   let isChecked = false;
 
   radios.forEach((radio) => {
     if (radio.checked) {
       isChecked = true;
-      radio.parentElement.querySelector('label').classList.remove("errorRadio");
-    } else {
-      radio.parentElement.querySelector('label').classList.add("errorRadio");
-      
     }
   });
 
-  if (!isChecked) {
+  if (isChecked) {
+    // Si un bouton est sélectionné, retirer les erreurs
+    radioGroup.classList.remove("radio-group-error");
+    const errorMessage = radioGroup.querySelector(".errorMessage");
+    if (errorMessage) {
+      errorMessage.remove();
+    }
+  } else {
+    // Si aucun bouton n'est sélectionné, ajouter une erreur
+    radioGroup.classList.add("radio-group-error");
+    let errorMessage = radioGroup.querySelector(".errorMessage");
+    if (!errorMessage) {
+      errorMessage = document.createElement("span");
+      errorMessage.className = "errorMessage";
+      radioGroup.appendChild(errorMessage);
+    }
+    errorMessage.innerText = "Obligation d'entrer une ville.";
     throw new Error("Obligation d'entrer une ville.");
   }
 }
 
 /**
- * Validation d'un champ lors de l'événement `blur`
+ * Validate event `blur`
  */
 function validerChamp(event) {
   const input = event.target;
@@ -153,15 +167,54 @@ function validerChamp(event) {
     } else if (input.name === "quantity") {
       validerQuantite(input);
     }
+  
     effacerMessageError(input);
   } catch (error) {
     afficherMessageError(input, error.message);
   }
 }
+function validerConditionsUtilisation() {
+  const checkbox = document.querySelector('#checkbox1');
+  const checkboxGroup = checkbox.closest(".formData"); // Trouve le conteneur parent
+
+  if (!checkbox.checked) {
+    checkboxGroup.classList.add("checkbox-group-error");
+    throw new Error("Le champ d'acceptation conditions d'utilisation est requis.");
+  } else {
+    checkboxGroup.classList.remove("checkbox-group-error");
+  }
+}
+// Gestionnaire d'événements pour les boutons radio
+document.querySelectorAll('input[name="location"]').forEach((radio) => {
+  radio.addEventListener('change', function () {
+    const radioGroup = this.closest(".formData");
+    const errorMessage = radioGroup.querySelector(".errorMessage");
+
+    if (this.checked) {
+      if (errorMessage) {
+        errorMessage.remove();
+      }
+      radioGroup.classList.remove("radio-group-error");
+    }
+  });
+});
+
+// Gestionnaire d'événements pour la checkbox
+document.querySelector('#checkbox1').addEventListener('change', function () {
+  const checkboxGroup = this.closest(".formData");
+  const errorMessage = checkboxGroup.querySelector(".errorMessage");
+  
+  if (this.checked) {
+    if (errorMessage) {
+      errorMessage.remove();
+    }
+    checkboxGroup.classList.remove("checkbox-group-error");
+  }
+});
+
 
 /**
- * Validation complète lors de la soumission du formulaire
- */
+ * Validate full form */
 function gererFormulaire(event) {
   event.preventDefault();
 
@@ -210,7 +263,7 @@ function gererFormulaire(event) {
   try {
     validerVille();
   } catch (error) {
-    const radioContainer = document.querySelector(".formData .checkbox-input").parentElement;
+    const radioContainer = document.querySelector(".formData");
     const errorMessage = radioContainer.querySelector(".errorMessage");
     if (!errorMessage) {
       const spanError = document.createElement("span");
@@ -221,17 +274,31 @@ function gererFormulaire(event) {
     isValid = false;
   }
 
-  // Si le formulaire est valide, afficher la popup de confirmation
+  try {
+    validerConditionsUtilisation();
+  } catch (error) {
+    const checkboxContainer = document.querySelector("#checkbox1").closest(".formData");
+    const errorMessage = checkboxContainer.querySelector(".errorMessage");
+    if (!errorMessage) {
+      const spanError = document.createElement("span");
+      spanError.className = "errorMessage";
+      spanError.innerText = error.message;
+      checkboxContainer.appendChild(spanError);
+    }
+    isValid = false;
+  }
+
+  // if form is valid, display popup result
   if (isValid) {
-    modalbg.style.display = "none"; // Fermer la modal actuelle
-    popupResult.style.display = "flex"; // Afficher la nouvelle modal de confirmation
+    modalbg.style.display = "none"; // close modal form
+    popupResult.style.display = "flex"; // display modal result
   }
 }
 
-// Écouteur pour chaque input du formulaire
+// event listener for input on form
 form.querySelectorAll('input').forEach((input) => {
-  input.addEventListener('blur', validerChamp); // Validation au blur
+  input.addEventListener('blur', validerChamp); // Validate blur
 });
 
-// Écouteur pour la soumission du formulaire
+// event listener for submit form
 form.addEventListener('submit', gererFormulaire);

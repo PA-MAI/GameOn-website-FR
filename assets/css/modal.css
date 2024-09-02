@@ -205,8 +205,16 @@ input {
   font-weight: 100;
   color: #e54858;
 }
-.errorRadio input [type=”radio”]{
-border-color: #e54858;
+.radio-group-error {
+  border: 2px solid #e54858;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.radio-group-success {
+  border: 2px solid #279e7a;
+  padding: 10px;
+  border-radius: 5px;
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
@@ -469,45 +477,40 @@ footer {
   margin: 0 20px;
 }
 
-/* Styles pour la modal de résultat */
+/* Style modal result on top*/
 .popupResult {
-  position: fixed;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
+  position: fixed; /* Fixe la modal en haut */
+  top: 50%;
+  left: 50%;
   border-radius: 10px;
-  top: 0;
-  left: 0;
+  transform: translate(-50%, -50%); /* Centre la modal horizontalement et verticalement */
   width: 100%;
-  max-width: 600px;
-  height: 88%;
+  max-width: 600px; /* Limite la largeur maximale */
+  height: 88%; /* Conserve la hauteur spécifique */
   background: #232323;
-  
-  /*position: relative;*/
   color: #fff;
-  display: none; /* Cachée par défaut */
-  flex-direction: column;
-  justify-content:flex-end;
-  align-self: center;
-  row-gap: 40%;
-  align-items: center;
-  z-index: 1001; /* S'assure qu'elle est au-dessus des autres éléments */
-  overflow: auto;
-  padding-top: 10px;
-  margin: 4% 35% ;
-  padding-bottom: 25px; 
+  display: flex;
+  flex-direction: column; /* Utilise flex-direction column pour empiler les éléments verticalement */
+  justify-content: space-between; /* Assure que le contenu et le bouton sont espacés correctement */
+  align-items:center;
+  padding: 10px; /* Ajuste le padding interne */
+  z-index: 1001; /* Assure que la modal est au-dessus des autres éléments */
+  box-sizing: border-box; /* Assure que le padding est inclus dans la largeur/hauteur */
+  overflow: auto; /* Ajoute un défilement si le contenu dépasse */
 }
 
-
+/* Style pour le contenu de la modal */
 .popupResult .popup {
   background-color: #232323;
   padding: 20px;
   border-radius: 5px;
   font-size: 26px;
   text-align: center;
-  position: center;
-  width: 80% ;
+  width: 80%; /* Ajuste la largeur du contenu à l'intérieur de la modal */
+  margin: auto; /* Centre le contenu horizontalement */
 }
 
+/* Style pour le bouton de fermeture de la modal */
 .popupResult .closeResult {
   position: absolute;
   top: 10px;
@@ -515,6 +518,8 @@ footer {
   font-size: 20px;
   cursor: pointer;
 }
+
+/* Style pour le bouton de fermeture en bas de la modal */
 .btn-close {
   background: #fe142f;
   display: block;
@@ -526,6 +531,9 @@ footer {
   cursor: pointer;
   border: 0;
 }
+
+
+
 @keyframes modalopen {
   from {
     opacity: 0;
@@ -589,7 +597,7 @@ footer {
     margin-top: 0;
     text-align: center;
   }
-  /* Styles pour la modal de résultat */
+  /* Styles Result modal */
 .popupResult{
   margin: 15% 0 0 0;
   gap:35%;
@@ -617,6 +625,11 @@ footer {
     float: none;
     display: block;
     text-align: left;
+  }
+  .popupResult {
+    width: 100%; /* Ajuste la largeur pour les petits écrans */
+    margin-bottom: 0;
+    
   }
 }
 
