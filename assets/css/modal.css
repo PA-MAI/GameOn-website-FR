@@ -441,7 +441,7 @@ input[data-error]::after {
 .hero-text {
   width: 146%;
   font-weight: normal;
-  margin-top: 35px;
+  margin-top: 75px;
   padding: 0;
 }
 .btn-signup {
@@ -513,10 +513,11 @@ footer {
 /* Style pour le bouton de fermeture de la modal */
 .popupResult .closeResult {
   position: absolute;
-  top: 10px;
+  top: -10px;
   right: 15px;
-  font-size: 20px;
+  font-size: 4rem;
   cursor: pointer;
+  font-weight: 200;
 }
 
 /* Style pour le bouton de fermeture en bas de la modal */
@@ -525,13 +526,25 @@ footer {
   display: block;
   margin: 0 auto;
   border-radius: 7px;
-  font-size: 1rem;
+  font-size: 1.3rem;
   padding: 12px 32px;
   color: #fff;
   cursor: pointer;
   border: 0;
 }
-
+.closeResult{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+  font-weight: 400;
+  
+  
+}
 
 
 @keyframes modalopen {
@@ -583,6 +596,7 @@ footer {
   .hero-text {
     width: unset;
     font-size: 1.0rem;
+    margin-top:45px;
   }
   .hero-img img {
     border-radius: 10px;
@@ -600,8 +614,11 @@ footer {
   /* Styles Result modal */
 .popupResult{
   margin: 15% 0 0 0;
-  gap:35%;
-  max-height:70%
+  gap:0;
+  max-height:85%
+}
+.btn-signup{
+  font-size: 1rem;
 }
 }
 
@@ -627,11 +644,18 @@ footer {
     text-align: left;
   }
   .popupResult {
-    width: 100%; /* Ajuste la largeur pour les petits écrans */
+    width: 100%; 
     margin-bottom: 0;
+    border-radius: 10px 10px 0 0;
+    height: 95%;
     
   }
+.btn-close{font-size: 1.0rem;
+  padding: 6px 32px;
+  margin-bottom: 25px;
+ }
 }
+
 
 @media screen and (max-width: 540px) {
   .topnav a {display: none;}

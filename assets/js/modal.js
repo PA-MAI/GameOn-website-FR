@@ -6,19 +6,22 @@ function editNav() {
     x.className = "topnav";
   }
 }
-
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalBtn = document.querySelector(".close");
 const form = document.forms['reserve'];
 const popupResult = document.querySelector(".popupResult");
+const closeResultBtn = document.querySelector(".closeResult");
+const btnCloseResult = document.querySelector(".btn-close");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeModalBtn.addEventListener("click", closeModal);
+closeModalBtn.addEventListener("click", closeFormModal);
+closeResultBtn.addEventListener("click", closeResultModal);
+btnCloseResult.addEventListener("click", closeResultModal);
 
 // launch modal form
 function launchModal() {
@@ -26,9 +29,13 @@ function launchModal() {
 }
 
 // close modal form
-function closeModal() {
+function closeFormModal() {
   modalbg.style.display = "none";
-  if (popupResult) popupResult.style.display = "none"; // close modal result if open
+}
+
+// close modal result
+function closeResultModal() {
+  popupResult.style.display = "none";
 }
 
 /**
@@ -64,19 +71,30 @@ function effacerMessageError(input) {
  * Validate inputs
  */
 function validerPrenom(first) {
+  const firstRegExp = new RegExp("[a-zA-Z\-\.]+");
   if (first.value === "") {
     throw new Error("Le champ prénom est vide.");
-  } else if (first.value.length < 2) {
-    throw new Error("Le prénom est trop court.");
   }
+  else if (!firstRegExp.test(first.value)) {
+    throw new Error("Caractères invalides.");
+  } 
+  
+  else if (first.value.length < 2) {
+    throw new Error("Le prénom est trop court.");
+  } 
 }
 
 function validerNom(last) {
+  const lastRegExp = new RegExp("[a-zA-Z\-\.]+");
   if (last.value === "") {
     throw new Error("Le champ nom est vide.");
-  } else if (last.value.length < 2) {
-    throw new Error("Le nom est trop court.");
   }
+  else if (!lastRegExp.test(last.value)) {
+    throw new Error("Caractères invalides.");
+  }
+  else if (last.value.length < 2) {
+    throw new Error("Le nom est trop court.");
+  } 
 }
 
 function validerEmail(email) {
@@ -119,7 +137,7 @@ function validerQuantite(quantity) {
 
 function validerVille() {
   const radios = document.querySelectorAll('input[name="location"]');
-  const radioGroup = radios[0].closest(".formData"); // Trouve le conteneur parent
+  const radioGroup = radios[0].closest(".formData"); 
 
   let isChecked = false;
 
@@ -173,6 +191,8 @@ function validerChamp(event) {
     afficherMessageError(input, error.message);
   }
 }
+
+
 function validerConditionsUtilisation() {
   const checkbox = document.querySelector('#checkbox1');
   const checkboxGroup = checkbox.closest(".formData"); // Trouve le conteneur parent
@@ -290,7 +310,7 @@ function gererFormulaire(event) {
 
   // if form is valid, display popup result
   if (isValid) {
-    modalbg.style.display = "none"; // close modal form
+    closeFormModal(); // close modal form
     popupResult.style.display = "flex"; // display modal result
   }
 }
