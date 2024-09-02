@@ -114,8 +114,7 @@ function validerDateNaissance(birthdate) {
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dateNaissance.getDate())) {
     age--;
   }
-
-  if (birthdate.value === "") {
+    else if (birthdate.value === "") {
     throw new Error("Le champ date de naissance est vide.");
   } else if (age < 12) {
     throw new Error("Les inscriptions ne sont pas ouvertes aux moins de 12 ans."); 
