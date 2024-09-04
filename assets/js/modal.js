@@ -43,7 +43,7 @@ function closeResultModal() {
  * @param {HTMLElement} input 
  * @param {string} message 
  */
-function afficherMessageError(input, message) {
+function displayError(input, message) {
   let spanErrorMessage = input.parentElement.querySelector(".errorMessage");
 
   if (!spanErrorMessage) {
@@ -59,7 +59,7 @@ function afficherMessageError(input, message) {
  * delete errors messages
  * @param {HTMLElement} input 
  */
-function effacerMessageError(input) {
+function deleteError(input) {
   let spanErrorMessage = input.parentElement.querySelector(".errorMessage");
   if (spanErrorMessage) {
     spanErrorMessage.remove();
@@ -68,9 +68,9 @@ function effacerMessageError(input) {
 }
 
 /** 
- * Validate inputs
+ * Validate form inputs
  */
-function validerPrenom(first) {
+function validFirst(first) {
   const firstRegExp = new RegExp("[a-zA-Z\-\.]+");
   if (first.value === "") {
     throw new Error("Le champ prénom est vide.");
@@ -84,7 +84,7 @@ function validerPrenom(first) {
   } 
 }
 
-function validerNom(last) {
+function validLast(last) {
   const lastRegExp = new RegExp("[a-zA-Z\-\.]+");
   if (last.value === "") {
     throw new Error("Le champ nom est vide.");
@@ -97,7 +97,7 @@ function validerNom(last) {
   } 
 }
 
-function validerEmail(email) {
+function validEmail(email) {
   const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
   if (email.value === "") {
     throw new Error("Le champ email est vide.");
@@ -106,7 +106,7 @@ function validerEmail(email) {
   }
 }
 
-function validerDateNaissance(birthdate) {
+function validBirthdate(birthdate) {
   const dateNaissance = new Date(birthdate.value);
   const today = new Date();
   const age = today.getFullYear() - dateNaissance.getFullYear();
@@ -125,7 +125,7 @@ function validerDateNaissance(birthdate) {
  
 }
 
-function validerQuantite(quantity) {
+function validQuantity(quantity) {
   const quantityValue = parseInt(quantity.value, 10);
   if (isNaN(quantityValue)) {
     throw new Error("Veuillez entrer un nombre valide.");
@@ -134,7 +134,7 @@ function validerQuantite(quantity) {
   }
 }
 
-function validerVille() {
+function validCity() {
   const radios = document.querySelectorAll('input[name="location"]');
   const radioGroup = radios[0].closest(".formData"); 
 
@@ -147,14 +147,14 @@ function validerVille() {
   });
 
   if (isChecked) {
-    // Si un bouton est sélectionné, retirer les erreurs
+    // if checked, delete errors
     radioGroup.classList.remove("radio-group-error");
     const errorMessage = radioGroup.querySelector(".errorMessage");
     if (errorMessage) {
       errorMessage.remove();
     }
   } else {
-    // Si aucun bouton n'est sélectionné, ajouter une erreur
+    // if unchecked, display error
     radioGroup.classList.add("radio-group-error");
     let errorMessage = radioGroup.querySelector(".errorMessage");
     if (!errorMessage) {
@@ -170,31 +170,33 @@ function validerVille() {
 /**
  * Validate event `blur`
  */
-function validerChamp(event) {
+function validForm(event) {
   const input = event.target;
   try {
     if (input.name === "first") {
-      validerPrenom(input);
+      validFirst(input);
     } else if (input.name === "last") {
-      validerNom(input);
+      validLast(input);
     } else if (input.name === "email") {
-      validerEmail(input);
+      validEmail(input);
     } else if (input.name === "birthdate") {
-      validerDateNaissance(input);
+      validBirthdate(input);
     } else if (input.name === "quantity") {
-      validerQuantite(input);
+      validQuantity(input);
     }
   
-    effacerMessageError(input);
+    deleteError(input);
   } catch (error) {
-    afficherMessageError(input, error.message);
+    displayError(input, error.message);
   }
 }
+/**
+ * Validate event conditions
+ */
 
-
-function validerConditionsUtilisation() {
+function validConditions() {
   const checkbox = document.querySelector('#checkbox1');
-  const checkboxGroup = checkbox.closest(".formData"); // Trouve le conteneur parent
+  const checkboxGroup = checkbox.closest(".formData"); 
 
   if (!checkbox.checked) {
     checkboxGroup.classList.add("checkbox-group-error");
@@ -203,7 +205,11 @@ function validerConditionsUtilisation() {
     checkboxGroup.classList.remove("checkbox-group-error");
   }
 }
-// Gestionnaire d'événements pour les boutons radio
+
+/**
+ * Validate event city
+ */
+
 document.querySelectorAll('input[name="location"]').forEach((radio) => {
   radio.addEventListener('change', function () {
     const radioGroup = this.closest(".formData");
@@ -218,7 +224,7 @@ document.querySelectorAll('input[name="location"]').forEach((radio) => {
   });
 });
 
-// Gestionnaire d'événements pour la checkbox
+// Events for checkbox
 document.querySelector('#checkbox1').addEventListener('change', function () {
   const checkboxGroup = this.closest(".formData");
   const errorMessage = checkboxGroup.querySelector(".errorMessage");
@@ -234,53 +240,53 @@ document.querySelector('#checkbox1').addEventListener('change', function () {
 
 /**
  * Validate full form */
-function gererFormulaire(event) {
+function runForm(event) {
   event.preventDefault();
 
   let isValid = true;
 
   try {
-    validerPrenom(form.first);
-    effacerMessageError(form.first);
+    validFirst(form.first);
+    deleteError(form.first);
   } catch (error) {
-    afficherMessageError(form.first, error.message);
+    displayError(form.first, error.message);
     isValid = false;
   }
 
   try {
-    validerNom(form.last);
-    effacerMessageError(form.last);
+    validLast(form.last);
+    deleteError(form.last);
   } catch (error) {
-    afficherMessageError(form.last, error.message);
+    displayError(form.last, error.message);
     isValid = false;
   }
 
   try {
-    validerEmail(form.email);
-    effacerMessageError(form.email);
+    validEmail(form.email);
+    deleteError(form.email);
   } catch (error) {
-    afficherMessageError(form.email, error.message);
+    displayError(form.email, error.message);
     isValid = false;
   }
 
   try {
-    validerDateNaissance(form.birthdate);
-    effacerMessageError(form.birthdate);
+    validBirthdate(form.birthdate);
+    deleteError(form.birthdate);
   } catch (error) {
-    afficherMessageError(form.birthdate, error.message);
+    displayError(form.birthdate, error.message);
     isValid = false;
   }
 
   try {
-    validerQuantite(form.quantity);
-    effacerMessageError(form.quantity);
+    validQuantity(form.quantity);
+    deleteError(form.quantity);
   } catch (error) {
-    afficherMessageError(form.quantity, error.message);
+    displayError(form.quantity, error.message);
     isValid = false;
   }
 
   try {
-    validerVille();
+    validCity();
   } catch (error) {
     const radioContainer = document.querySelector(".formData");
     const errorMessage = radioContainer.querySelector(".errorMessage");
@@ -294,7 +300,7 @@ function gererFormulaire(event) {
   }
 
   try {
-    validerConditionsUtilisation();
+    validConditions();
   } catch (error) {
     const checkboxContainer = document.querySelector("#checkbox1").closest(".formData");
     const errorMessage = checkboxContainer.querySelector(".errorMessage");
@@ -316,8 +322,8 @@ function gererFormulaire(event) {
 
 // event listener for input on form
 form.querySelectorAll('input').forEach((input) => {
-  input.addEventListener('blur', validerChamp); // Validate blur
+  input.addEventListener('blur', validForm); // Validate blur
 });
 
 // event listener for submit form
-form.addEventListener('submit', gererFormulaire);
+form.addEventListener('submit', runForm);

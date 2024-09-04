@@ -479,24 +479,24 @@ footer {
 
 /* Style modal result on top*/
 .popupResult {
-  position: fixed; /* Fixe la modal en haut */
+  position: fixed;
   top: 50%;
   left: 50%;
   border-radius: 10px;
-  transform: translate(-50%, -50%); /* Centre la modal horizontalement et verticalement */
+  transform: translate(-50%, -50%); 
   width: 100%;
-  max-width: 600px; /* Limite la largeur maximale */
-  height: 88%; /* Conserve la hauteur spécifique */
+  max-width: 600px; 
+  height: 88%; 
   background: #232323;
   color: #fff;
   display: none;
-  flex-direction: column; /* Utilise flex-direction column pour empiler les éléments verticalement */
-  justify-content: space-between; /* Assure que le contenu et le bouton sont espacés correctement */
+  flex-direction: column; 
+  justify-content: space-between; 
   align-items:center;
-  padding: 10px; /* Ajuste le padding interne */
-  z-index: 1001; /* Assure que la modal est au-dessus des autres éléments */
-  box-sizing: border-box; /* Assure que le padding est inclus dans la largeur/hauteur */
-  overflow: auto; /* Ajoute un défilement si le contenu dépasse */
+  padding: 10px; 
+  z-index: 1001; 
+  box-sizing: border-box; 
+  overflow: auto; 
 }
 
 /* Style pour le contenu de la modal */
@@ -506,8 +506,8 @@ footer {
   border-radius: 5px;
   font-size: 26px;
   text-align: center;
-  width: 80%; /* Ajuste la largeur du contenu à l'intérieur de la modal */
-  margin: auto; /* Centre le contenu horizontalement */
+  width: 80%; 
+  margin: auto; 
 }
 
 /* Style pour le bouton de fermeture de la modal */
