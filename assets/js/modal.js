@@ -6,7 +6,10 @@ function editNav() {
     x.className = "topnav";
   }
 }
-// DOM Elements
+/** 
+ *  DOM Elements
+ * */
+
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalBtn = document.querySelector(".close");
@@ -14,6 +17,11 @@ const form = document.forms['reserve'];
 const popupResult = document.querySelector(".popupResult");
 const closeResultBtn = document.querySelector(".closeResult");
 const btnCloseResult = document.querySelector(".btn-close");
+
+
+/** 
+* Modal Functions
+*/
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -39,10 +47,12 @@ function closeResultModal() {
 }
 
 /**
- * Display errors messages
- * @param {HTMLElement} input 
+ * Error Handling Functions
+  * @param {HTMLElement} input 
  * @param {string} message 
  */
+
+//Display errors messages
 function displayError(input, message) {
   let spanErrorMessage = input.parentElement.querySelector(".errorMessage");
 
@@ -55,10 +65,7 @@ function displayError(input, message) {
   input.classList.add("errorStyle");
 }
 
-/**
- * delete errors messages
- * @param {HTMLElement} input 
- */
+//Delete errors messages
 function deleteError(input) {
   let spanErrorMessage = input.parentElement.querySelector(".errorMessage");
   if (spanErrorMessage) {
@@ -68,8 +75,10 @@ function deleteError(input) {
 }
 
 /** 
- * Validate form inputs
+ * Validation Functions
  */
+
+//form field validation with regular expression
 function validFirst(first) {
   const firstRegExp = new RegExp("[a-zA-Z\-\.]+");
   if (first.value === "") {
@@ -105,26 +114,28 @@ function validEmail(email) {
     throw new Error("L'email n'est pas valide.");
   }
 }
-
+//form field validation date of birth between 12 and 80 years old
 function validBirthdate(birthdate) {
+  if (birthdate.value === "") {
+    throw new Error("Le champ date de naissance est vide.");
+  }
+
   const dateNaissance = new Date(birthdate.value);
   const today = new Date();
-  const age = today.getFullYear() - dateNaissance.getFullYear();
+  let age = today.getFullYear() - dateNaissance.getFullYear();
   const monthDiff = today.getMonth() - dateNaissance.getMonth();
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dateNaissance.getDate())) {
     age--;
   }
-    else if (birthdate.value === "") {
-    throw new Error("Le champ date de naissance est vide.");
-  } else if (age < 12) {
+  
+  if (age < 12) {
     throw new Error("Les inscriptions ne sont pas ouvertes aux moins de 12 ans."); 
   }
-    else if (age > 80) {
-      throw new Error("Vous êtes trop vieux pour vous inscrire."); 
-    }
- 
+  if (age > 80) {
+    throw new Error("Vous êtes trop vieux pour vous inscrire."); 
+  }
 }
-
+//form field validation for number between 0 and 50 events
 function validQuantity(quantity) {
   const quantityValue = parseInt(quantity.value, 10);
   if (isNaN(quantityValue)) {
@@ -133,7 +144,7 @@ function validQuantity(quantity) {
     throw new Error("Il n'y a pas encore eu plus de 50 événements.");
   }
 }
-
+//validation of the required form radio field
 function validCity() {
   const radios = document.querySelectorAll('input[name="location"]');
   const radioGroup = radios[0].closest(".formData"); 
@@ -166,10 +177,26 @@ function validCity() {
     throw new Error("Obligation d'entrer une ville.");
   }
 }
+// mandatory condition checkbox validation check
+function validConditions() {
+  const checkbox = document.querySelector('#checkbox1');
+  const checkboxGroup = checkbox.closest(".formData"); 
+
+  if (!checkbox.checked) {
+    checkboxGroup.classList.add("checkbox-group-error");
+    throw new Error("Le champ d'acceptation conditions d'utilisation est requis.");
+  } else {
+    checkboxGroup.classList.remove("checkbox-group-error");
+  }
+}
+
+
 
 /**
- * Validate event `blur`
+ * Form Validation*
  */
+
+//Validate event `blur`
 function validForm(event) {
   const input = event.target;
   try {
@@ -186,70 +213,28 @@ function validForm(event) {
     }
   
     deleteError(input);
+    console.log(`${input.name} validé avec succès.`);
   } catch (error) {
     displayError(input, error.message);
-  }
-}
-/**
- * Validate event conditions
- */
-
-function validConditions() {
-  const checkbox = document.querySelector('#checkbox1');
-  const checkboxGroup = checkbox.closest(".formData"); 
-
-  if (!checkbox.checked) {
-    checkboxGroup.classList.add("checkbox-group-error");
-    throw new Error("Le champ d'acceptation conditions d'utilisation est requis.");
-  } else {
-    checkboxGroup.classList.remove("checkbox-group-error");
+    console.log(`Erreur détectée pour ${input.name} : ${error.message}`);
   }
 }
 
-/**
- * Validate event city
- */
-
-document.querySelectorAll('input[name="location"]').forEach((radio) => {
-  radio.addEventListener('change', function () {
-    const radioGroup = this.closest(".formData");
-    const errorMessage = radioGroup.querySelector(".errorMessage");
-
-    if (this.checked) {
-      if (errorMessage) {
-        errorMessage.remove();
-      }
-      radioGroup.classList.remove("radio-group-error");
-    }
-  });
-});
-
-// Events for checkbox
-document.querySelector('#checkbox1').addEventListener('change', function () {
-  const checkboxGroup = this.closest(".formData");
-  const errorMessage = checkboxGroup.querySelector(".errorMessage");
-  
-  if (this.checked) {
-    if (errorMessage) {
-      errorMessage.remove();
-    }
-    checkboxGroup.classList.remove("checkbox-group-error");
-  }
-});
-
-
-/**
- * Validate full form */
+//Validate full form 
 function runForm(event) {
   event.preventDefault();
-
+  // Reset form validity for each submit 
   let isValid = true;
+  // reset errors messages before validation
+  form.querySelectorAll(".errorMessage").forEach(error => error.remove());
+  form.querySelectorAll(".errorStyle").forEach(input => input.classList.remove("errorStyle"));
 
   try {
     validFirst(form.first);
     deleteError(form.first);
   } catch (error) {
     displayError(form.first, error.message);
+    console.log(`Erreur champ prénom : ${error.message}`);
     isValid = false;
   }
 
@@ -258,6 +243,7 @@ function runForm(event) {
     deleteError(form.last);
   } catch (error) {
     displayError(form.last, error.message);
+    console.log(`Erreur champ nom : ${error.message}`);
     isValid = false;
   }
 
@@ -266,6 +252,7 @@ function runForm(event) {
     deleteError(form.email);
   } catch (error) {
     displayError(form.email, error.message);
+    console.log(`Erreur champ Email : ${error.message}`);
     isValid = false;
   }
 
@@ -274,6 +261,7 @@ function runForm(event) {
     deleteError(form.birthdate);
   } catch (error) {
     displayError(form.birthdate, error.message);
+    console.log(`Erreur champ Birthdate : ${error.message}`);
     isValid = false;
   }
 
@@ -288,7 +276,7 @@ function runForm(event) {
   try {
     validCity();
   } catch (error) {
-    const radioContainer = document.querySelector(".formData");
+    const radioContainer = form.querySelector('input[name="location"]').closest(".formData");
     const errorMessage = radioContainer.querySelector(".errorMessage");
     if (!errorMessage) {
       const spanError = document.createElement("span");
@@ -296,6 +284,7 @@ function runForm(event) {
       spanError.innerText = error.message;
       radioContainer.appendChild(spanError);
     }
+    console.log(`Erreur champ ville : ${error.message}`);
     isValid = false;
   }
 
@@ -315,10 +304,47 @@ function runForm(event) {
 
   // if form is valid, display popup result
   if (isValid) {
-    closeFormModal(); // close modal form
+    console.log("Formulaire validé avec succès !");
+    closeFormModal(); // close modal form if form valid
     popupResult.style.display = "flex"; // display modal result
+  } else {
+    console.log("Formulaire invalide, veuillez corriger les erreurs.");
   }
 }
+
+/*
+*Event Listeners
+*/ 
+
+ //Event city Radio
+
+document.querySelectorAll('input[name="location"]').forEach((radio) => {
+  radio.addEventListener('change', function () {
+    const radioGroup = this.closest(".formData");
+    const errorMessage = radioGroup.querySelector(".errorMessage");
+
+    if (this.checked) {
+      if (errorMessage) {
+        errorMessage.remove();
+      }
+      radioGroup.classList.remove("radio-group-error");
+    }
+  });
+});
+
+// Events for checkbox conditions
+document.querySelector('#checkbox1').addEventListener('change', function () {
+  const checkboxGroup = this.closest(".formData");
+  const errorMessage = checkboxGroup.querySelector(".errorMessage");
+  
+  if (this.checked) {
+    if (errorMessage) {
+      errorMessage.remove();
+    }
+    checkboxGroup.classList.remove("checkbox-group-error");
+  }
+});
+
 
 // event listener for input on form
 form.querySelectorAll('input').forEach((input) => {
@@ -327,3 +353,4 @@ form.querySelectorAll('input').forEach((input) => {
 
 // event listener for submit form
 form.addEventListener('submit', runForm);
+
