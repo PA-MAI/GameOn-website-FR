@@ -640,7 +640,7 @@ footer {
   }
   /* Styles Result modal */
 .popupResult{
-  margin: 15% 0 0 0;
+  margin: 65px 0 0 0;
   gap:0;
   max-height:85%
 }
