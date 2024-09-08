@@ -204,8 +204,7 @@ input {
 .errorMessage{
   display: inline-block;
   position:relative;
-  top: -10px;
-  margin-bottom: -15px;
+  top: -5px;
   font-size: 10px;
   font-weight: 100;
   color: #e54858;
