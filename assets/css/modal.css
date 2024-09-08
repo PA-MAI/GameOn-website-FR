@@ -166,7 +166,7 @@ label {
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 input {
   padding: 8px;
@@ -192,19 +192,24 @@ input {
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
+  line-height: 0.5em;
 }
 .errorStyle {
   border-color: #e54858;
   border-width: 2px;
   color: #e54858;
   font-size: 20px;
+  margin-top: 0;
 }
 .errorMessage{
-  margin-top: 0px;
-  margin-bottom: 5px;
-  font-size: x-small;
+  display: inline-block;
+  position:relative;
+  top: -10px;
+  margin-bottom: -15px;
+  font-size: 10px;
   font-weight: 100;
   color: #e54858;
+  
 }
 .radio-group-error {
   border: 2px solid #e54858;
