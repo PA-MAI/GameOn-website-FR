@@ -227,12 +227,7 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -504,7 +499,7 @@ footer {
   overflow: auto; 
 }
 
-/* Style pour le contenu de la modal */
+/* Style popup modal result */
 .popupResult .popup {
   background-color: #232323;
   padding: 20px;
@@ -515,7 +510,7 @@ footer {
   margin: auto; 
 }
 
-/* Style pour le bouton de fermeture de la modal */
+/* Style close for modal result*/
 .closeResult {
   position: absolute;
   right: 15px;
@@ -541,17 +536,8 @@ footer {
 .closeResult:after {
   transform: rotate(-45deg);
 }
-/*
-.popupResult .closeResult {
-  position: absolute;
-  top: -10px;
-  right: 15px;
-  font-size: 4rem;
-  cursor: pointer;
-  font-weight: bolder;
-}
-*/
-/* Style pour le bouton de fermeture en bas de la modal */
+
+/* Style button for close in bottom modal result */
 .btn-close {
   background: #fe142f;
   display: block;
@@ -572,9 +558,6 @@ footer {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
-  
-  
-  
 }
 
 
@@ -642,7 +625,8 @@ footer {
     margin-top: 0;
     text-align: center;
   }
-  /* Styles Result modal */
+  
+  /* Styles Result modal in 800px*/
 .popupResult{
   margin: 65px 0 0 0;
   gap:0;
