@@ -166,6 +166,7 @@ label {
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
+  margin-top: 10px;
 }
 input {
   padding: 8px;
@@ -511,15 +512,41 @@ footer {
 }
 
 /* Style pour le bouton de fermeture de la modal */
+.closeResult {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+}
+.closeResult:before,
+.closeResult:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 3px;
+  background-color: #fff;
+}
+.closeResult:before {
+  transform: rotate(45deg);
+}
+.closeResult:after {
+  transform: rotate(-45deg);
+}
+/*
 .popupResult .closeResult {
   position: absolute;
   top: -10px;
   right: 15px;
   font-size: 4rem;
   cursor: pointer;
-  font-weight: 200;
+  font-weight: bolder;
 }
-
+*/
 /* Style pour le bouton de fermeture en bas de la modal */
 .btn-close {
   background: #fe142f;
@@ -541,7 +568,7 @@ footer {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
-  font-weight: 400;
+  
   
   
 }
