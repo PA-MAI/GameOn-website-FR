@@ -2,7 +2,16 @@ import { closeFormModal,showResult } from './modal.js';
 import { displayError, deleteError } from './errorfunctions.js';
 /** 
  * Validation Functions
- */
+ * @param {HTMLElement} input 
+ * @param {string} first
+ * @param {string} last
+ * @param {string} email
+ * @param {string} birthday
+ * @param {string} quantity //number but in area string
+ * @param {boolean} location
+ * @param {boolean} checkbox1
+ * @param {boolean} checkbox2
+*/
 
 //form field validation with regular expression
 function validFirst(first) {
@@ -124,7 +133,8 @@ function validConditions() {
  * Form Validation*
  */
 
-//Validate event `blur`
+//Validate event `blur` for first,last,email,birthdate and quantity
+
 export function validForm(event) {
   const input = event.target;
   try {
@@ -141,7 +151,7 @@ export function validForm(event) {
     }
   
     deleteError(input);
-    console.log(`${input.name} validé avec succès.`);
+    console.log(`${input.name} champs validé avec succès.`);
   } catch (error) {
     displayError(input, error.message);
     console.log(`Erreur détectée pour ${input.name} : ${error.message}`);
@@ -210,8 +220,7 @@ export function runForm(event) {
     displayError(form.quantity, error.message);
     isValid = false;
   }
-
-  
+//validCity and validConditions error messages only appear on submit
   try {
     validCity();
   } catch (error) {
@@ -245,7 +254,6 @@ export function runForm(event) {
     showResult(); // display modal result
     closeFormModal(); // close modal form if form valid
     console.log("Formulaire validé avec succès !");
-    
   } else {
     console.log("Formulaire invalide, veuillez corriger les erreurs.");
   }

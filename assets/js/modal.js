@@ -1,23 +1,27 @@
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const popupResult = document.querySelector(".popupResult");
+
 /** 
  * Modal Functions
  */
 
 // launch modal form
 export function launchModal() {
-  document.querySelector(".bground").style.display = "block";
+  modalbg.style.display = "block";
 }
 
 // close modal event
 export function closeFormModal() {
-  document.querySelector(".bground").style.display = "none";
+  modalbg.style.display = "none";
 }
 
 // show result
 export function showResult() {
-  document.querySelector(".popupResult").style.display = 'flex';
+  popupResult.style.display = 'flex';
 }
 
 // close result modal
 export function closeResultModal() {
-  document.querySelector(".popupResult").style.display = "none";
+  popupResult.style.display = "none";
 }

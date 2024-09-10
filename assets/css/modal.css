@@ -71,8 +71,6 @@ img {
 
 
 
-
- 
 main {
   font-size: 130%;
   font-weight: bolder;
@@ -561,6 +559,7 @@ footer {
   transform: scale(0.7);
 }
 
+/* keyframes*/
 
 @keyframes modalopen {
   from {
@@ -571,16 +570,18 @@ footer {
     opacity: 1;
   }
 }
+
+
+/* responsives media Query 980px to 800px */
+
 @media screen and (max-width: 980px) {
   .hero-headline {
     font-size: 5rem;
-    
   }
 }
 @media screen and (max-width: 822px) {
   .topnav a{
     font-size: 18px;
-    
   }
 }
 @media screen and (max-width: 800px) {
@@ -638,7 +639,7 @@ footer {
 }
 }
 
-
+/* responsives media Query 768px to 540px and below*/
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
@@ -664,12 +665,11 @@ footer {
     margin-bottom: 0;
     border-radius: 10px 10px 0 0;
     height: 95%;
-    
   }
-.btn-close{font-size: 1.0rem;
-  padding: 6px 32px;
-  margin-bottom: 25px;
- }
+  .btn-close{font-size: 1.0rem;
+    padding: 6px 32px;
+    margin-bottom: 25px;
+  }
 }
 
 
