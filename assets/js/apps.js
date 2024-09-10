@@ -3,6 +3,8 @@ import { launchModal, closeFormModal, closeResultModal } from './modal.js';
 import { validForm, setForm, runForm } from './validfunctions.js';
 
 // DOM Elements
+const modalbg = document.querySelector(".bground");
+const popupResult = document.querySelector(".popupResult");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeModalBtn = document.querySelector(".close");
 const form = document.forms['reserve'];

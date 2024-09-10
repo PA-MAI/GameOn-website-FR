@@ -1,5 +1,6 @@
 import { closeFormModal,showResult } from './modal.js';
 import { displayError, deleteError } from './errorfunctions.js';
+
 /** 
  * Validation Functions
  * @param {HTMLElement} input 

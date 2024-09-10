@@ -1,6 +1,6 @@
 /**
  * Error Handling Functions
-  * @param {HTMLElement} input 
+ * @param {HTMLElement} input 
  * @param {string} message 
  */
 
