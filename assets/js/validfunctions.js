@@ -14,7 +14,7 @@ import {
 * @param {string} last
 * @param {string} email
 * @param {string} birthday
-* @param {string} quantity //number but in area string
+* @param {number} quantity 
 * @param {boolean} location
 * @param {boolean} checkbox1
 * @param {boolean} checkbox2
@@ -54,7 +54,7 @@ function validEmail(email) {
 //form field validation date of birth between 12 and 80 years old
 function validBirthdate(birthdate) {
   if (birthdate.value === "") {
-     throw new Error("Le champ date de naissance est vide.");
+     throw new Error("Vous devez entrer votre date de naissance.");
   }
 
   const dateNaissance = new Date(birthdate.value);
@@ -72,13 +72,13 @@ function validBirthdate(birthdate) {
      throw new Error("Vous êtes trop vieux pour vous inscrire.");
   }
 }
-//form field validation for number between 0 and 50 events
+//form field validation for number between 0 and 99 events
 function validQuantity(quantity) {
   const quantityValue = parseInt(quantity.value, 10);
   if (isNaN(quantityValue)) {
      throw new Error("Veuillez entrer un nombre valide.");
-  } else if (quantityValue < 0 || quantityValue > 50) {
-     throw new Error("Il n'y a pas encore eu plus de 50 événements.");
+  } else if (quantityValue < 0 || quantityValue > 99) {
+     throw new Error("Il n'y a pas encore eu plus de 99 événements.");
   }
 }
 //validation of the required form radio field
@@ -123,7 +123,7 @@ function validConditions() {
 
   if (!checkbox.checked) {
      checkboxGroup.classList.add("checkbox-group-error");
-     throw new Error("Le champ d'acceptation conditions d'utilisation est requis.");
+     throw new Error("Vous devez vérifier que vous acceptez les termes et conditions.");
   } else {
      checkboxGroup.classList.remove("checkbox-group-error");
   }
