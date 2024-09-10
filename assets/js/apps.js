@@ -1,6 +1,7 @@
 import './editNav.js';
 import { launchModal, closeFormModal, closeResultModal } from './modal.js';
 import { validForm, setForm, runForm } from './validfunctions.js';
+import { getFormDataHistory } from './keepform.js';
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -27,4 +28,11 @@ setForm(form);
 
 // Submit event for the form
 form.addEventListener('submit', runForm);
+
+//view submission history
+
+  const history = getFormDataHistory();
+  console.log('Historique des données du formulaire :', history);
+
+
 

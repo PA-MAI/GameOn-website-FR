@@ -2,10 +2,14 @@ import {
   closeFormModal,
   showResult
 } from './modal.js';
+
 import {
   displayError,
   deleteError
 } from './errorfunctions.js';
+
+import { keepFormData 
+} from './keepform.js';
 
 /** 
 * Validation Functions
@@ -250,7 +254,10 @@ export function runForm(event) {
      isValid = false;
   }
 
-  // if form is valid, display popup result
+   // Save data form field regardless of the validation result
+   keepFormData(form);
+
+   // if form is valid, display popup result
   if (isValid) {
      showResult(); // display modal result
      closeFormModal(); // close modal form if form valid
