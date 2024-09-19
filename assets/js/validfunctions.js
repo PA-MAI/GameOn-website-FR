@@ -70,7 +70,7 @@ function validBirthdate(birthdate) {
   }
 
   if (age < 12) {
-     throw new Error("Les inscriptions ne sont pas ouvertes aux moins de 12 ans.");
+     throw new Error("Pas d'inscriptions ouvertes aux moins de 12 ans.");
   }
   if (age > 80) {
      throw new Error("Vous êtes trop vieux pour vous inscrire.");
@@ -121,18 +121,30 @@ function validCity() {
 }
 // mandatory condition checkbox validation check
 function validConditions() {
-  console.log("Validation des conditions");
-  const checkbox = document.querySelector('#checkbox1');
-  const checkboxGroup = checkbox.closest(".formData");
 
-  if (!checkbox.checked) {
-     checkboxGroup.classList.add("checkbox-group-error");
-     throw new Error("Vous devez vérifier que vous acceptez les termes et conditions.");
-  } else {
-     checkboxGroup.classList.remove("checkbox-group-error");
-  }
-}
+      console.log("Validation des conditions");
+      const checkbox = document.querySelector('#checkbox1');
+      const checkboxLabel = checkbox.nextElementSibling; 
 
+      if (!checkbox.checked) {
+        const checkboxContainer = checkboxLabel.parentElement;
+
+        let errorMessage = checkboxContainer.querySelector(".errorMessage");
+        if (!errorMessage) {
+          errorMessage = document.createElement("span");
+          errorMessage.className = "errorMessage";
+          errorMessage.innerText = "Vous devez accepter les termes et conditions.";
+          checkboxLabel.after(errorMessage);
+        }
+        throw new Error("Vous devez accepter les termes et conditions.");
+      } else {
+        const checkboxContainer = checkboxLabel.parentElement;
+        let errorMessage = checkboxContainer.querySelector(".errorMessage");
+        if (errorMessage) {
+          errorMessage.remove();
+        }
+      }
+    }
 
 /**
 * Form Validation*

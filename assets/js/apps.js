@@ -11,6 +11,7 @@ const closeModalBtn = document.querySelector(".close");
 const form = document.forms['reserve'];
 const closeResultBtn = document.querySelector(".closeResult");
 const btnCloseResult = document.querySelector(".btn-close");
+const formdata = document.querySelectorAll(".formData")
 
 // Modal event listeners
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -33,6 +34,11 @@ form.addEventListener('submit', runForm);
 
   const history = getFormDataHistory();
   console.log('Historique des données du formulaire :', history);
+
+//reset form
+  form.reset(formdata);
+  
+  
 
 
 

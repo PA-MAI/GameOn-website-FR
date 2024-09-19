@@ -19,6 +19,7 @@ export function closeFormModal() {
 // show result
 export function showResult() {
   popupResult.style.display = 'flex';
+  
 }
 
 // close result modal
